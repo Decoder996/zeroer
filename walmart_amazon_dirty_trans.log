@@ -1,0 +1,62 @@
+Using 4 parallel jobs for feature extraction (set --n_jobs to change)
+Generating features and storing in: datasets/walmart_amazon_dirty/candset_features_df.csv
+[ZEROER] Dataset: walmart_amazon_dirty
+[ZEROER] Transitivity: True, LR_dup_free: True, LR_identical: False
+[ZEROER] Files: LEFT=datasets/walmart_amazon_dirty/tableA.csv, RIGHT=datasets/walmart_amazon_dirty/tableB.csv, MATCHES=datasets/walmart_amazon_dirty/matches.csv
+[LOAD_DATA] Starting data loading...
+[LOAD_DATA] Loading left table: datasets/walmart_amazon_dirty/tableA.csv
+[LOAD_DATA] Left table loaded: 2554 rows, columns: ['id', 'title', 'category', 'brand', 'modelno', 'price']
+[LOAD_DATA] Loading right table: datasets/walmart_amazon_dirty/tableB.csv
+[LOAD_DATA] Right table loaded: 22074 rows, columns: ['id', 'title', 'category', 'brand', 'modelno', 'price']
+[LOAD_DATA] Ground truth loaded: 962 matches
+[LOAD_DATA] Starting blocking (LxR)...
+Warning: No valid output stream.
+Finding pairs with missing value...
+Warning: No valid output stream.
+[LOAD_DATA] Blocking (LxR) completed: 1314024 candidate pairs
+[ZEROER] Starting feature extraction for 1,314,024 candidate pairs...
+
+
+Extracting the full set of features:
+Using 4 parallel jobs for feature extraction...
+Warning: No valid output stream.
+[ZEROER] Feature extraction completed. Saving to file...
+[ZEROER] Features saved: 1,314,024 rows, 59 columns
+
+Dataset Statistics:
+  Total candidate pairs: 1,314,024
+  Number of features: 55
+  Positive pairs: 961 (0.07%)
+Using init_threshold=0.8, c_bay=0.015
+Warning: Features are not in [0,1] range (min=0.0000, max=1.0000)
+Normalizing features to [0,1] range...
+Features normalized successfully.
+Initialization: 12 positive (0.00%), 1314012 negative (100.00%)
+Using c_bay=0.015 (paper default: 0.015)
+Results after EM:
+F1: 0.29, Precision: 0.24, Recall: 0.38
+
+Metadata file is not present in the given path; proceeding to read the csv file.
+Metadata file is not present in the given path; proceeding to read the csv file.
+/home/wzdou/miniconda3/envs/ZeroER/lib/python3.6/site-packages/py_entitymatching/blocker/overlap_blocker.py:258: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  l_df[l_dummy_overlap_attr] = l_df[l_overlap_attr]
+/home/wzdou/miniconda3/envs/ZeroER/lib/python3.6/site-packages/py_entitymatching/blocker/overlap_blocker.py:259: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  r_df[r_dummy_overlap_attr] = r_df[r_overlap_attr]
+/home/wzdou/miniconda3/envs/ZeroER/lib/python3.6/site-packages/py_entitymatching/blocker/overlap_blocker.py:615: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  table[overlap_attr] = values
+  0%|          | 0/40 [00:00<?, ?it/s]norm: 15.62, F1: 0.05, Precision: 0.12, Recall: 0.03:   0%|          | 0/40 [00:10<?, ?it/s]norm: 15.62, F1: 0.05, Precision: 0.12, Recall: 0.03:   2%|▎         | 1/40 [00:10<06:31, 10.03s/it]norm: 29.40, F1: 0.27, Precision: 0.30, Recall: 0.25:   2%|▎         | 1/40 [00:20<06:31, 10.03s/it]norm: 29.40, F1: 0.27, Precision: 0.30, Recall: 0.25:   5%|▌         | 2/40 [00:20<06:33, 10.36s/it]norm: 42.78, F1: 0.30, Precision: 0.25, Recall: 0.36:   5%|▌         | 2/40 [00:32<06:33, 10.36s/it]norm: 42.78, F1: 0.30, Precision: 0.25, Recall: 0.36:   8%|▊         | 3/40 [00:32<06:54, 11.21s/it]/home/wzdou/miniconda3/envs/ZeroER/lib/python3.6/site-packages/scipy/optimize/zeros.py:459: RuntimeWarning: some failed to converge after 5 iterations
+  warnings.warn(msg, RuntimeWarning)
+norm: 49.52, F1: 0.29, Precision: 0.23, Recall: 0.39:   8%|▊         | 3/40 [00:46<06:54, 11.21s/it]norm: 49.52, F1: 0.29, Precision: 0.23, Recall: 0.39:  10%|█         | 4/40 [00:46<07:14, 12.08s/it]norm: 42.27, F1: 0.29, Precision: 0.23, Recall: 0.40:  10%|█         | 4/40 [01:00<07:14, 12.08s/it]norm: 42.27, F1: 0.29, Precision: 0.23, Recall: 0.40:  12%|█▎        | 5/40 [01:00<07:25, 12.73s/it]norm: 46.27, F1: 0.29, Precision: 0.24, Recall: 0.38:  12%|█▎        | 5/40 [01:12<07:25, 12.73s/it]norm: 46.27, F1: 0.29, Precision: 0.24, Recall: 0.38:  15%|█▌        | 6/40 [01:12<07:03, 12.46s/it]norm: 42.56, F1: 0.29, Precision: 0.23, Recall: 0.40:  15%|█▌        | 6/40 [01:25<07:03, 12.46s/it]norm: 42.56, F1: 0.29, Precision: 0.23, Recall: 0.40:  18%|█▊        | 7/40 [01:25<07:06, 12.93s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  18%|█▊        | 7/40 [01:38<07:06, 12.93s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  20%|██        | 8/40 [01:38<06:44, 12.65s/it]norm: 42.62, F1: 0.29, Precision: 0.23, Recall: 0.40:  20%|██        | 8/40 [01:51<06:44, 12.65s/it]norm: 42.62, F1: 0.29, Precision: 0.23, Recall: 0.40:  22%|██▎       | 9/40 [01:51<06:44, 13.06s/it]norm: 46.41, F1: 0.29, Precision: 0.24, Recall: 0.38:  22%|██▎       | 9/40 [02:04<06:44, 13.06s/it]norm: 46.41, F1: 0.29, Precision: 0.24, Recall: 0.38:  25%|██▌       | 10/40 [02:04<06:22, 12.75s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  25%|██▌       | 10/40 [02:18<06:22, 12.75s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  28%|██▊       | 11/40 [02:18<06:20, 13.12s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  28%|██▊       | 11/40 [02:30<06:20, 13.12s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  30%|███       | 12/40 [02:30<06:00, 12.87s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  30%|███       | 12/40 [02:44<06:00, 12.87s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  32%|███▎      | 13/40 [02:44<05:56, 13.21s/it]norm: 46.38, F1: 0.29, Precision: 0.24, Recall: 0.38:  32%|███▎      | 13/40 [02:56<05:56, 13.21s/it]norm: 46.38, F1: 0.29, Precision: 0.24, Recall: 0.38:  35%|███▌      | 14/40 [02:56<05:35, 12.90s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  35%|███▌      | 14/40 [03:10<05:35, 12.90s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  38%|███▊      | 15/40 [03:10<05:29, 13.19s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  38%|███▊      | 15/40 [03:22<05:29, 13.19s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  40%|████      | 16/40 [03:22<05:08, 12.85s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  40%|████      | 16/40 [03:36<05:08, 12.85s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  42%|████▎     | 17/40 [03:36<05:03, 13.21s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  42%|████▎     | 17/40 [03:48<05:03, 13.21s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  45%|████▌     | 18/40 [03:48<04:42, 12.82s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  45%|████▌     | 18/40 [04:01<04:42, 12.82s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  48%|████▊     | 19/40 [04:01<04:34, 13.05s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  48%|████▊     | 19/40 [04:14<04:34, 13.05s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  50%|█████     | 20/40 [04:14<04:15, 12.75s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  50%|█████     | 20/40 [04:27<04:15, 12.75s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  52%|█████▎    | 21/40 [04:27<04:08, 13.06s/it]norm: 46.38, F1: 0.29, Precision: 0.24, Recall: 0.38:  52%|█████▎    | 21/40 [04:39<04:08, 13.06s/it]norm: 46.38, F1: 0.29, Precision: 0.24, Recall: 0.38:  55%|█████▌    | 22/40 [04:39<03:49, 12.77s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  55%|█████▌    | 22/40 [04:53<03:49, 12.77s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  57%|█████▊    | 23/40 [04:53<03:41, 13.06s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  57%|█████▊    | 23/40 [05:05<03:41, 13.06s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  60%|██████    | 24/40 [05:05<03:24, 12.81s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  60%|██████    | 24/40 [05:19<03:24, 12.81s/it]norm: 42.63, F1: 0.29, Precision: 0.23, Recall: 0.40:  62%|██████▎   | 25/40 [05:19<03:17, 13.20s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  62%|██████▎   | 25/40 [05:32<03:17, 13.20s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  65%|██████▌   | 26/40 [05:32<03:02, 13.00s/it]norm: 42.56, F1: 0.29, Precision: 0.23, Recall: 0.40:  65%|██████▌   | 26/40 [05:46<03:02, 13.00s/it]norm: 42.56, F1: 0.29, Precision: 0.23, Recall: 0.40:  68%|██████▊   | 27/40 [05:46<02:53, 13.36s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  68%|██████▊   | 27/40 [05:59<02:53, 13.36s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  70%|███████   | 28/40 [05:59<02:37, 13.10s/it]norm: 42.62, F1: 0.29, Precision: 0.23, Recall: 0.40:  70%|███████   | 28/40 [06:13<02:37, 13.10s/it]norm: 42.62, F1: 0.29, Precision: 0.23, Recall: 0.40:  72%|███████▎  | 29/40 [06:13<02:27, 13.40s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  72%|███████▎  | 29/40 [06:25<02:27, 13.40s/it]norm: 46.39, F1: 0.29, Precision: 0.24, Recall: 0.38:  75%|███████▌  | 30/40 [06:25<02:10, 13.02s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  75%|███████▌  | 30/40 [06:39<02:10, 13.02s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  78%|███████▊  | 31/40 [06:39<02:00, 13.39s/it]norm: 46.28, F1: 0.29, Precision: 0.24, Recall: 0.38:  78%|███████▊  | 31/40 [06:51<02:00, 13.39s/it]norm: 46.28, F1: 0.29, Precision: 0.24, Recall: 0.38:  80%|████████  | 32/40 [06:51<01:44, 13.06s/it]norm: 42.64, F1: 0.29, Precision: 0.23, Recall: 0.40:  80%|████████  | 32/40 [07:05<01:44, 13.06s/it]norm: 42.64, F1: 0.29, Precision: 0.23, Recall: 0.40:  82%|████████▎ | 33/40 [07:05<01:33, 13.29s/it]norm: 46.40, F1: 0.29, Precision: 0.24, Recall: 0.38:  82%|████████▎ | 33/40 [07:18<01:33, 13.29s/it]norm: 46.40, F1: 0.29, Precision: 0.24, Recall: 0.38:  85%|████████▌ | 34/40 [07:18<01:17, 12.97s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  85%|████████▌ | 34/40 [07:32<01:17, 12.97s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  88%|████████▊ | 35/40 [07:32<01:06, 13.29s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  88%|████████▊ | 35/40 [07:44<01:06, 13.29s/it]norm: 46.29, F1: 0.29, Precision: 0.24, Recall: 0.38:  90%|█████████ | 36/40 [07:44<00:51, 12.94s/it]norm: 42.64, F1: 0.29, Precision: 0.23, Recall: 0.40:  90%|█████████ | 36/40 [07:57<00:51, 12.94s/it]norm: 42.64, F1: 0.29, Precision: 0.23, Recall: 0.40:  92%|█████████▎| 37/40 [07:57<00:39, 13.14s/it]norm: 46.40, F1: 0.29, Precision: 0.24, Recall: 0.38:  92%|█████████▎| 37/40 [08:09<00:39, 13.14s/it]norm: 46.40, F1: 0.29, Precision: 0.24, Recall: 0.38:  95%|█████████▌| 38/40 [08:09<00:25, 12.78s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  95%|█████████▌| 38/40 [08:23<00:25, 12.78s/it]norm: 42.57, F1: 0.29, Precision: 0.23, Recall: 0.40:  98%|█████████▊| 39/40 [08:23<00:13, 13.09s/it]norm: 46.30, F1: 0.29, Precision: 0.24, Recall: 0.38:  98%|█████████▊| 39/40 [08:35<00:13, 13.09s/it]norm: 46.30, F1: 0.29, Precision: 0.24, Recall: 0.38: 100%|██████████| 40/40 [08:35<00:00, 12.79s/it]norm: 46.30, F1: 0.29, Precision: 0.24, Recall: 0.38: 100%|██████████| 40/40 [08:35<00:00, 12.89s/it]
+
