@@ -317,19 +317,19 @@ def _get_features_for_type(column_type):
 
     # Based on the column type, return the feature functions that should be
     # generated.
-    if column_type is 'str_eq_1w':
+    if column_type == 'str_eq_1w':
         features = lookup_table['STR_EQ_1W']
-    elif column_type is 'str_bt_1w_5w':
+    elif column_type == 'str_bt_1w_5w':
         features = lookup_table['STR_BT_1W_5W']
-    elif column_type is 'str_bt_5w_10w':
+    elif column_type == 'str_bt_5w_10w':
         features = lookup_table['STR_BT_5W_10W']
-    elif column_type is 'str_gt_10w':
+    elif column_type == 'str_gt_10w':
         features = lookup_table['STR_GT_10W']
-    elif column_type is 'numeric':
+    elif column_type == 'numeric':
         features = lookup_table['NUM']
-    elif column_type is 'boolean':
+    elif column_type == 'boolean':
         features = lookup_table['BOOL']
-    elif column_type is 'un_determined':
+    elif column_type == 'un_determined':
         features = lookup_table['UN_DETERMINED']
     else:
         raise TypeError('Unknown type')

@@ -170,13 +170,23 @@ def block_walmart_amazon(A, B):
     #=================>results in a candidate set of size 1.1M with 20 missing duplicates out of 1154
     #blocking_utils.verify_blocking_ground_truth(dataset_name, C1)
 
+    # Try original attributes first (for structured version)
     r_attributes = ["title","proddescrshort","brand","price","dimensions","shipweight"]
     l_attributes = ["title","shortdescr","brand","price","dimensions","shipweight"]
 
-    if not set(r_attributes).issubset(B.columns): # fix in case A B are the same dataset
-        r_attributes = l_attributes
-    if not set(l_attributes).issubset(A.columns):
-        l_attributes = r_attributes
+    # If original attributes don't exist, try dirty version attributes
+    if not set(r_attributes).issubset(B.columns) or not set(l_attributes).issubset(A.columns):
+        # For dirty version: use available attributes
+        available_attrs = ["title", "category", "brand", "modelno", "price"]
+        r_attributes = [attr for attr in available_attrs if attr in B.columns]
+        l_attributes = [attr for attr in available_attrs if attr in A.columns]
+    else:
+        # Original structured version
+        if not set(r_attributes).issubset(B.columns):
+            r_attributes = l_attributes
+        if not set(l_attributes).issubset(A.columns):
+            l_attributes = r_attributes
+    
     #attributes = ['brand', 'groupname', 'title', 'price', 'shortdescr', 'longdescr', 'imageurl', 'modelno', 'shipweight', 'dimensions']
     C2 = ob.block_tables(A, B, 'title', 'title', word_level=True, overlap_size=2, l_output_attrs=l_attributes, r_output_attrs=r_attributes, show_progress=True, allow_missing=True)
     #=================>results in a candidate set of size 278K with 84 missing duplicates out of 1154
@@ -270,10 +280,12 @@ blocking_functions_mapping["fodors_zagats_single"] = block_fodors_zagats
 blocking_functions_mapping["fodors_zagats_test"] = block_fodors_zagats
 blocking_functions_mapping["abt_buy"] = block_abt_buy
 blocking_functions_mapping["dblp_acm"] = block_dblp_acm
+blocking_functions_mapping["dblp_acm_dirty"] = block_dblp_acm  # Use same blocking function for dirty version
 blocking_functions_mapping["dblp_scholar"] = block_dblp_scholar
 blocking_functions_mapping["dblp_googlescholar"] = block_dblp_scholar  # Alias for DBLP-GoogleScholar
 blocking_functions_mapping["amazon_googleproducts"] = block_amazon_googleproducts
 blocking_functions_mapping["walmart_amazon"] = block_walmart_amazon
+blocking_functions_mapping["walmart_amazon_dirty"] = block_walmart_amazon  # Use same blocking function for dirty version
 blocking_functions_mapping["songs"] = block_songs
 blocking_functions_mapping["citations"] = blocking_for_citeseer_dblp
 
