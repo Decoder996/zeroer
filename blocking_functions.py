@@ -2,6 +2,11 @@ from collections import defaultdict
 
 from pandas import merge
 import py_entitymatching as em
+import os
+
+def get_n_jobs():
+    """Get n_jobs from environment variable, default to 4"""
+    return int(os.environ.get('ZEROER_N_JOBS', '4'))
 
 
 """ This python file contains blocking functions
@@ -204,8 +209,21 @@ def block_wa(A, B):
 #amazon.csv and GoogleProducts.csv
 def block_amazon_googleproducts(A, B):
     ob = em.OverlapBlocker()
-    #=================>results in a candidate set of size 400K with 6 missing duplicates out of 1300
-    C = ob.block_tables(A, B, "title", "title", word_level=True, overlap_size=1, l_output_attrs=["title","description","manufacturer","price"], r_output_attrs=["title","description","manufacturer","price"], show_progress=True, allow_missing=False)
+    # Note: tableA has "title" column, tableB has "name" column
+    # Using overlap_size=1 for maximum recall (original setting)
+    # Produces ~400K candidates with 6 missing duplicates out of 1300
+    l_attr = "title" if "title" in A.columns else "name"
+    r_attr = "name" if "name" in B.columns else "title"
+    l_output_attrs = [l_attr, "description", "manufacturer", "price"]
+    r_output_attrs = [r_attr, "description", "manufacturer", "price"]
+    # Filter to only include columns that exist
+    l_output_attrs = [col for col in l_output_attrs if col in A.columns]
+    r_output_attrs = [col for col in r_output_attrs if col in B.columns]
+    # Get n_jobs from environment variable if set, otherwise use default
+    n_jobs = get_n_jobs()
+    C = ob.block_tables(A, B, l_attr, r_attr, word_level=True, overlap_size=1, 
+                        l_output_attrs=l_output_attrs, r_output_attrs=r_output_attrs, 
+                        show_progress=True, allow_missing=False, n_jobs=n_jobs)
     return C
 
 def block_songs(A, B):
@@ -215,6 +233,23 @@ def block_songs(A, B):
                         l_output_attrs=["title","release","artist_name","duration","artist_familiarity","artist_hotttnesss","year"],
                         r_output_attrs=["title","release","artist_name","duration","artist_familiarity","artist_hotttnesss","year"],
                         show_progress=True, allow_missing=False,n_jobs=8)
+    return C
+
+#Beer dataset: tableA.csv and tableB.csv
+def block_beer(A, B):
+    ob = em.OverlapBlocker()
+    # Use Beer_Name as the blocking key, similar to other product datasets
+    # Attributes: Beer_Name, Brew_Factory_Name, Style, ABV
+    # Using overlap_size=3 for better precision (stricter blocking to reduce false positives)
+    # This produces ~8K candidates with 65 positive pairs (0.77% positive rate)
+    # overlap_size=4 was too strict (only 21 positives, F1 dropped to 0.06)
+    attributes = ['Beer_Name', 'Brew_Factory_Name', 'Style', 'ABV']
+    # Filter to only include columns that exist
+    l_output_attrs = [col for col in attributes if col in A.columns]
+    r_output_attrs = [col for col in attributes if col in B.columns]
+    C = ob.block_tables(A, B, 'Beer_Name', 'Beer_Name', word_level=True, overlap_size=3,
+                        l_output_attrs=l_output_attrs, r_output_attrs=r_output_attrs,
+                        show_progress=True, allow_missing=True)
     return C
 
 def generic_blocking_func(A, B):
@@ -229,13 +264,14 @@ def generic_blocking_func(A, B):
     print (list(final))
     return final
 
-
 blocking_functions_mapping = defaultdict(str)
 blocking_functions_mapping["fodors_zagats"] = block_fodors_zagats
 blocking_functions_mapping["fodors_zagats_single"] = block_fodors_zagats
+blocking_functions_mapping["fodors_zagats_test"] = block_fodors_zagats
 blocking_functions_mapping["abt_buy"] = block_abt_buy
 blocking_functions_mapping["dblp_acm"] = block_dblp_acm
 blocking_functions_mapping["dblp_scholar"] = block_dblp_scholar
+blocking_functions_mapping["dblp_googlescholar"] = block_dblp_scholar  # Alias for DBLP-GoogleScholar
 blocking_functions_mapping["amazon_googleproducts"] = block_amazon_googleproducts
 blocking_functions_mapping["walmart_amazon"] = block_walmart_amazon
 blocking_functions_mapping["songs"] = block_songs
@@ -251,3 +287,4 @@ blocking_functions_mapping["books"] = block_books
 blocking_functions_mapping["baby_products"] = block_baby_products
 blocking_functions_mapping["restaurants"] = block_restaurants
 blocking_functions_mapping['wa'] = block_wa
+blocking_functions_mapping["beer"] = block_beer
